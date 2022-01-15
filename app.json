@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "store-chat",
+    "slug": "store-chat",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "store-chat"
+}
