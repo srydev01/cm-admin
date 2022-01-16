@@ -2,8 +2,8 @@ import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeAdmin, RegistrationScreen } from './src/screens'
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { LoginScreen, HomeAdmin, RegistrationScreen, AdminManagement } from './src/screens'
+import { getAuth, onAuthStateChanged, add } from 'firebase/auth'
 import { doc } from 'firebase/firestore'
 import { decode, encode } from 'base-64'
 import { getDoc } from 'firebase/firestore';
@@ -35,7 +35,7 @@ export default function App() {
 
   useEffect(() => {
 		const authSubScrib = onAuthStateChanged(auth, onAuthChanged)
-    return () => authSubScrib()
+    return authSubScrib
 	}, [])
 
   if (loading) {
@@ -48,13 +48,68 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         { user ? (
-          <Stack.Screen name="Home" options={({ route }) => ({ title: 'Admin: ' + user.username })}>
-            {props => <HomeAdmin {...props} extraData={user} />}
-          </Stack.Screen>
+          <>
+            <Stack.Screen name="Home" options={({ route }) => ({
+                title: 'Admin: ' + user.username,
+                headerStyle: {
+                  backgroundColor: '#338',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                  textShadowColor: '#000',
+                  textShadowRadius: 6,
+                  textShadowOffset: {width: 1, height: 1}
+                },
+              })}>
+              {props => <HomeAdmin {...props} extraData={user} />}
+            </Stack.Screen>
+            <Stack.Screen name="AdminManagement" options={({ route }) => (
+              {
+                title: 'Admin Management',
+                headerStyle: {
+                  backgroundColor: '#338',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                  fontSize: 16,
+                  textShadowColor: '#000',
+                  textShadowRadius: 6,
+                  textShadowOffset: {width: 1, height: 1}
+                },
+              })}>
+              {props => <AdminManagement {...props} extraData={user} />}
+            </Stack.Screen>
+          </>
         ) : (
           <>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Registration" component={RegistrationScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} options={({ route }) => (
+              {
+                headerStyle: {
+                  backgroundColor: '#338',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                  textShadowColor: '#000',
+                  textShadowRadius: 6,
+                  textShadowOffset: {width: 1, height: 1}
+                },
+              })}/>
+            <Stack.Screen name="Registration" component={RegistrationScreen} options={({ route }) => (
+              {
+                headerStyle: {
+                  backgroundColor: '#338',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                  textShadowColor: '#000',
+                  textShadowRadius: 6,
+                  textShadowOffset: {width: 1, height: 1}
+                },
+              })}/>
           </>
         )}
       </Stack.Navigator>

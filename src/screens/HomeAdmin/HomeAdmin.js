@@ -7,7 +7,7 @@ export default function HomeAdmin(props) {
   const auth = getAuth()
 
   const adminMngPrees = () => {
-    
+    props.navigation.navigate('AdminManagement')
   }
 
   const workflowPrees = () => {
@@ -30,21 +30,21 @@ export default function HomeAdmin(props) {
       <ScrollView style={{ width: '100%' }}>
       <View style={styles.rowMenu}>
           <TouchableOpacity
-            style={styles.adminMng}
+            style={[styles.adminMng, styles.shadowBtn]}
             onPress={() => adminMngPrees()}>
             <Text style={styles.adminMngTitle}>Admin Management</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.rowMenu}>
           <TouchableOpacity
-            style={styles.workflow}
+            style={[styles.workflow, styles.shadowBtn]}
             onPress={() => workflowPrees()}>
             <Text style={styles.workflowTitle}>Workflow</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.rowMenu}>
           <TouchableOpacity
-            style={styles.products}
+            style={[styles.products, styles.shadowBtn]}
             onPress={() => productsPrees()}>
             <Text style={styles.productsTitle}>Products</Text>
           </TouchableOpacity>

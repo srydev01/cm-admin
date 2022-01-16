@@ -1,5 +1,5 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import firebase from '../../firebase/config';
 import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
@@ -17,13 +17,17 @@ export default function LoginScreen(props) {
   }
 
   const onLoginPress = () => {
-    signInWithEmailAndPassword(auth, email, password).then(res => {
-      const uid = res.user.uid
-      getDoc(doc(firebase, 'users', uid)).then(data => {
-        console.log(data.data().username + ' logged in.');
-        props.navigation.navigate('Home', {user: data.data()})
+    if (email.length > 0 && email.startsWith('#')) {
+      
+    } else {
+      signInWithEmailAndPassword(auth, email, password).then(res => {
+        const uid = res.user.uid
+        getDoc(doc(firebase, 'users', uid)).then(data => {
+          console.log(data.data().username + ' logged in.');
+          props.navigation.navigate('Home', { user: data.data() })
+        })
       })
-    })
+    }
   }
 
   return (
