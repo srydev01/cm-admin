@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "store-chat",
-    "slug": "store-chat",
+    "name": "cm-admin",
+    "slug": "cm-admin",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ]
   },
-  "name": "store-chat"
+  "name": "cm-admin"
 }
